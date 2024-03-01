@@ -1,5 +1,7 @@
-package com.spring.hiarc.user;
+package com.spring.hiarc.user.controller;
 
+import com.spring.hiarc.user.dto.SignUpDTO;
+import com.spring.hiarc.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +16,9 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signUp(@RequestBody SignDTO signDTO) {
+    public ResponseEntity<String> signUp(@RequestBody SignUpDTO signUpDTO) {
         try {
-            userService.signUp(signDTO.getUsername(), signDTO.getPassword());
+            userService.signUp(signUpDTO.getUsername(), signUpDTO.getPassword());
             return ResponseEntity.ok("회원가입 성공!");
         }
         catch (Exception e) {
@@ -25,9 +27,9 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> signIn(@RequestBody SignDTO signDTO) {
+    public ResponseEntity<String> signIn(@RequestBody SignUpDTO signUpDTO) {
         try {
-            userService.signIn(signDTO.getUsername(), signDTO.getPassword());
+            userService.signIn(signUpDTO.getUsername(), signUpDTO.getPassword());
             return ResponseEntity.ok("로그인 성공!");
         }
         catch (Exception e) {
