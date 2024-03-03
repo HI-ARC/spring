@@ -1,6 +1,5 @@
 package com.spring.hiarc.user.controller;
 
-import com.spring.hiarc.user.dto.SignUpDTO;
 import com.spring.hiarc.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +15,9 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signUp(@RequestBody SignUpDTO signUpDTO) {
+    public ResponseEntity<String> signUp(@RequestParam("username") String username, @RequestParam("password") String password) {
         try {
-            userService.signUp(signUpDTO.getUsername(), signUpDTO.getPassword());
+            userService.signUp(username, password);
             return ResponseEntity.ok("회원가입 성공!");
         }
         catch (Exception e) {
@@ -27,13 +26,19 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> signIn(@RequestBody SignUpDTO signUpDTO) {
+    public ResponseEntity<String> signIn(@RequestParam("username") String username, @RequestParam("password") String password) {
         try {
-            userService.signIn(signUpDTO.getUsername(), signUpDTO.getPassword());
+            userService.signIn(username, password);
             return ResponseEntity.ok("로그인 성공!");
         }
         catch (Exception e) {
             return ResponseEntity.status(409).body(e.getMessage());
         }
+    }
+
+    @GetMapping("/info")
+    public String info() {
+        System.out.println("info worked");
+        return "str";
     }
 }

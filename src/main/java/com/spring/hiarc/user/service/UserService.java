@@ -3,7 +3,6 @@ package com.spring.hiarc.user.service;
 
 import com.spring.hiarc.user.entity.User;
 import com.spring.hiarc.user.repository.UserRepository;
-import com.spring.hiarc.user.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ public class UserService {
         User user = new User();
         user.setUsername(username);
         user.setPassword(bCryptPasswordEncoder.encode(password));
-        user.setUserRole(UserRole.USER);
+        user.setUserRole("USER");
         userRepository.save(user);
 
         return user;

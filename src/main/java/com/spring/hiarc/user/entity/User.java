@@ -1,6 +1,5 @@
 package com.spring.hiarc.user.entity;
 
-import com.spring.hiarc.user.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +15,5 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private UserRole userRole;
+    private String userRole;
 }

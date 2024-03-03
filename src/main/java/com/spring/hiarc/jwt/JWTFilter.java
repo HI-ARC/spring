@@ -1,6 +1,6 @@
 package com.spring.hiarc.jwt;
 
-import com.spring.hiarc.user.UserRole;
+
 import com.spring.hiarc.user.dto.CustomUserDetails;
 import com.spring.hiarc.user.entity.User;
 import jakarta.servlet.FilterChain;
@@ -43,7 +43,7 @@ public class JWTFilter extends OncePerRequestFilter {
         User user = new User();
         user.setUsername(username);
         user.setPassword("temppassword");
-        user.setUserRole(UserRole.valueOf(role));
+        user.setUserRole("USER");
 
         CustomUserDetails customUserDetails = new CustomUserDetails(user);
 
