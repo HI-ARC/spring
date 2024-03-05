@@ -57,7 +57,6 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/user/signin", "/user/signup").permitAll()
-                        .requestMatchers("/user/info").authenticated()
                         .anyRequest().authenticated());
 
         http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);

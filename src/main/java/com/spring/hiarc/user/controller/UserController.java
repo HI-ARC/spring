@@ -38,7 +38,11 @@ public class UserController {
 
     @GetMapping("/info")
     public String info() {
-        System.out.println("info worked");
-        return "str";
+        try {
+            return userService.getUserInfo();
+        }
+        catch (Exception e) {
+            return "info worked";
+        }
     }
 }
