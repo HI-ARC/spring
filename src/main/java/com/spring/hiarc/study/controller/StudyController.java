@@ -27,9 +27,21 @@ public class StudyController {
             return ResponseEntity.ok("스터디 생성 성공!");
         }
         catch (Exception e) {
-            return ResponseEntity.status(203).body("오류 발생: " + e.getMessage());
+            return ResponseEntity.status(500).body("오류 발생: " + e.getMessage());
         }
     }
+
+    @GetMapping("/getstudy")
+    public ResponseEntity<String> getStudy() {
+        try {
+            String studyies = studyService.getStudy();
+            return ResponseEntity.ok(studyies);
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(500).body("오류 발생: " + e.getMessage());
+        }
+    }
+
 
     @PostMapping("/addstudymember")
     public ResponseEntity<String> addStudyMember(@RequestParam("name") String name, @RequestParam("username") String username) {
@@ -38,7 +50,7 @@ public class StudyController {
             return ResponseEntity.ok("스터디 멤버 추가 성공!");
         }
         catch (Exception e) {
-            return ResponseEntity.status(203).body("오류 발생: " + e.getMessage());
+            return ResponseEntity.status(500).body("오류 발생: " + e.getMessage());
         }
     }
 
@@ -49,6 +61,28 @@ public class StudyController {
         }
         catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ArrayList<String>());
+        }
+    }
+
+    @PostMapping("/attendance")
+    public ResponseEntity<String> attendanceStudy(@RequestParam("username") String username, @RequestParam("code") String code) {
+        try {
+            studyService.attendanceStudy(username, code);
+            return ResponseEntity.ok("출석 체크 성공!");
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(500).body("오류 발생: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/setcode")
+    public ResponseEntity<String> setCode(@RequestParam("name") String name, @RequestParam("code") String code) {
+        try {
+            studyService.setCode(name, code);
+            return ResponseEntity.ok("코드 변경 성공!");
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(500).body("오류 발생: " + e.getMessage());
         }
     }
 }

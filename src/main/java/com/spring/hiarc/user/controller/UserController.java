@@ -25,16 +25,16 @@ public class UserController {
         }
     }
 
-    @PostMapping("/signin")
-    public ResponseEntity<String> signIn(@RequestParam("username") String username, @RequestParam("password") String password) {
-        try {
-            userService.signIn(username, password);
-            return ResponseEntity.ok("로그인 성공!");
-        }
-        catch (Exception e) {
-            return ResponseEntity.status(409).body(e.getMessage());
-        }
-    }
+//    @PostMapping("/signin")
+//    public ResponseEntity<String> signIn(@RequestParam("username") String username, @RequestParam("password") String password) {
+//        try {
+//            userService.signIn(username, password);
+//            return ResponseEntity.ok("로그인 성공!");
+//        }
+//        catch (Exception e) {
+//            return ResponseEntity.status(409).body(e.getMessage());
+//        }
+//    }
 
     @GetMapping("/info")
     public String info() {

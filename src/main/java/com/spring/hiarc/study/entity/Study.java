@@ -21,4 +21,6 @@ public class Study {
 
     @OneToMany(mappedBy = "study")
     private List<UserStudy> userStudies = new ArrayList<>();
+
+    private String attendanceCode;
 }
