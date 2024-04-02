@@ -1,5 +1,6 @@
 package com.spring.hiarc.study.controller;
 
+import com.spring.hiarc.study.entity.Attendance;
 import com.spring.hiarc.study.entity.Study;
 import com.spring.hiarc.study.service.StudyService;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.TableView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,18 +33,6 @@ public class StudyController {
         }
     }
 
-    @GetMapping("/getstudy")
-    public ResponseEntity<String> getStudy() {
-        try {
-            String studyies = studyService.getStudy();
-            return ResponseEntity.ok(studyies);
-        }
-        catch (Exception e) {
-            return ResponseEntity.status(500).body("오류 발생: " + e.getMessage());
-        }
-    }
-
-
     @PostMapping("/addstudymember")
     public ResponseEntity<String> addStudyMember(@RequestParam("name") String name, @RequestParam("username") String username) {
         try {
@@ -54,32 +44,55 @@ public class StudyController {
         }
     }
 
-    @GetMapping("/getmystudy")
-    public ResponseEntity<List<String>> getMyStudy(@RequestParam("username") String username) {
+    @PostMapping("/addAttendanceList")
+    public ResponseEntity<String> addAttendanceList(@RequestParam("name") String name, @RequestParam("attendanceName") String attendanceName, @RequestParam("code") String code, @RequestParam("expiredTime") String expiredTime) {
         try {
-            return ResponseEntity.ok(studyService.getMyStudy(username));
-        }
-        catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ArrayList<String>());
-        }
-    }
-
-    @PostMapping("/attendance")
-    public ResponseEntity<String> attendanceStudy(@RequestParam("username") String username, @RequestParam("code") String code) {
-        try {
-            studyService.attendanceStudy(username, code);
-            return ResponseEntity.ok("출석 체크 성공!");
+            studyService.addAttendanceList(name, attendanceName, code, expiredTime);
+            return ResponseEntity.ok("코드 변경 성공!");
         }
         catch (Exception e) {
             return ResponseEntity.status(500).body("오류 발생: " + e.getMessage());
         }
     }
 
-    @PostMapping("/setcode")
-    public ResponseEntity<String> setCode(@RequestParam("name") String name, @RequestParam("code") String code) {
+    @GetMapping("/getmystudy")
+    public ResponseEntity<List<String>> getMyStudy() {
         try {
-            studyService.setCode(name, code);
-            return ResponseEntity.ok("코드 변경 성공!");
+            return ResponseEntity.ok(studyService.getMyStudy());
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ArrayList<String>());
+        }
+    }
+
+    @GetMapping("/getstudy")
+    public ResponseEntity<String> getStudy() {
+        try {
+            return ResponseEntity.ok(studyService.getStudy());
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(500).body("오류 발생: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/getmyattendance")
+    public ResponseEntity<?> getMyAttendance() {
+        try {
+            return ResponseEntity.ok(studyService.getMyAttendance());
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(500).body("오류 발생: " + e.getMessage());
+        }
+    }
+
+
+
+
+    @PostMapping("/attendance")
+    public ResponseEntity<String> attendanceStudy(@RequestParam("username") String username, @RequestParam("code") String code) {
+        try {
+            studyService.attendanceStudy(username, code);
+            return ResponseEntity.ok("출석 체크 성공!");
         }
         catch (Exception e) {
             return ResponseEntity.status(500).body("오류 발생: " + e.getMessage());

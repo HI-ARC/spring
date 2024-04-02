@@ -4,6 +4,7 @@ package com.spring.hiarc.user.service;
 import com.spring.hiarc.user.entity.User;
 import com.spring.hiarc.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,23 +41,11 @@ public class UserService {
         if (!Objects.equals(user.getPassword(), bCryptPasswordEncoder.encode(password))) {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
-
-
         return user;
     }
 
 
-    public String getUserInfo() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-
-        System.out.println(username);
-        return username;
+    public String getUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

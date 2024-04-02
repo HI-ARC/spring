@@ -36,10 +36,12 @@ public class UserController {
 //        }
 //    }
 
-    @GetMapping("/info")
+    @GetMapping("/username")
     public String info() {
         try {
-            return userService.getUserInfo();
+            String username = userService.getUsername();
+            System.out.println("user/username: " + username);
+            return username;
         }
         catch (Exception e) {
             return "info worked";

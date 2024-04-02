@@ -7,8 +7,4 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
     boolean existsByName(String name);
     Study findByName(String name);
 
-    Study findByAttendanceCode(String code);
-    boolean existsByAttendanceCode(String code);
-
-
 }
